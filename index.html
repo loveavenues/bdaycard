@@ -1,0 +1,1232 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@600&family=Merriweather&display=swap" rel="stylesheet">
+    <title>Birthday Letter</title>
+    <style>
+        @import url(https://fonts.googleapis.com/css?family=Allan:700,400);
+        body, html {
+        width: 100%;
+        height: 100%;
+        }
+
+        body {
+        margin: 0;
+        background-color: mistyrose;
+        position: relative;
+        perspective: 800px;
+        overflow: hidden;
+        }
+
+        .envelope {
+        z-index: 2;
+        position: absolute;
+        width: 550px;
+        height: 366.66667px;
+        top: 50%;
+        left: 50%;
+        margin-top: -183.33333px;
+        margin-left: -275px;
+        transform-style: preserve-3d;
+        transform-origin: right center;
+        transition: transform 1s ease;
+        font-family: "Allan", sans-serif;
+        color: #1F1F1F;
+        }
+        .envelope .front, .envelope .back {
+        position: absolute;
+        width: 100%;
+        height: 100%;
+        background-color: #FFF;
+        border-radius: 5px;
+        box-shadow:  0 0 30px -5px #fbc0b9eb;
+        }
+        .envelope .front {
+        backface-visibility: hidden;
+        cursor: pointer;
+        display: table;
+        }
+        .envelope .front:focus {
+        outline: none;
+        }
+        .envelope .front .stamp {
+        transform: translate3d(0, 0, 1px);
+        position: absolute;
+        width: 80px;
+        height: 80px;
+        right: 10px;
+        top: 10px;
+        padding: 10px;
+        background: radial-gradient(rgba(0, 0, 0, 0) 0px, rgba(0, 0, 0, 0) 4px, #f6f6df 4px, #f6f6df);
+        background-size: 20px 20px;
+        background-position: -10px -10px;
+        }
+        .envelope .front .stamp:after {
+        content: "";
+        display: block;
+        width: 100%;
+        height: 100%;
+        background-color: #FFF;
+        border-radius: 2px;
+        }
+        .envelope .front .mail {
+        text-align: center;
+        display: table-cell;
+        vertical-align: middle;
+        }
+        .envelope .front .mail p {
+        font-weight: bold;
+        margin: 0;
+        }
+        .envelope .back .letter p {
+        font-size: 30px;
+        line-height: 20px;
+        letter-spacing: 2px;
+        color: #ff969f;
+        }
+        .envelope .front .mail p:first-child {
+        font-size: 50px;
+        line-height: 50px;
+        color: #ff969f;
+        }
+        .envelope .front .mail p:last-child {
+        font-size: 30px;
+        }
+        .envelope .back .letter p:nth-child(2) {
+        font-size: 30px;
+        color: black;
+        }
+        .envelope .back .letter p:nth-child(3) {
+        font-size: 30px;
+        color: #f57882;
+        margin-top: 150px;
+        float: right;
+        }
+        .envelope .back {
+        transform: rotateY(180deg) translate3d(0, 0, 1px);
+        }
+        .envelope .back .flip {
+        position: absolute;
+        width: 100%;
+        height: 100%;
+        overflow: hidden;
+        }
+        .envelope .back .flip:before {
+        content: "";
+        position: absolute;
+        background-color: #FFF;
+        box-shadow: 0px 0px 100px #f5c1bc52;
+        }
+        .envelope .back .top-flip:before, .envelope .back .bottom-flip:before {
+        width: 388.90873px;
+        height: 388.90873px;
+        }
+        .envelope .back .top-flip {
+        z-index: 5;
+        transform-origin: top center;
+        }
+        .envelope .back .top-flip:before {
+        transform-origin: top left;
+        transform: rotate(-45deg);
+        border-bottom-left-radius: 50px;
+        border-top-left-radius: 10px;
+        border-bottom-right-radius: 10px;
+        }
+        .envelope .back .bottom-flip {
+        z-index: 4;
+        }
+        .envelope .back .bottom-flip:before {
+        transform-origin: left bottom;
+        transform: rotate(45deg) translate(-15px, -15px);
+        border-top-left-radius: 100px;
+        border-bottom-left-radius: 10px;
+        border-top-right-radius: 10px;
+        }
+        .envelope .back .left-flip:before, .envelope .back .right-flip:before {
+        width: 269.27249px;
+        height: 269.27249px;
+        top: -5px;
+        }
+        .envelope .back .left-flip {
+        z-index: 3;
+        }
+        .envelope .back .left-flip:before {
+        transform-origin: top left;
+        transform: rotate(45deg);
+        border-top-left-radius: 20px;
+        border-bottom-right-radius: 30px;
+        border-top-right-radius: 5px;
+        }
+        .envelope .back .right-flip {
+        z-index: 2;
+        }
+        .envelope .back .right-flip:before {
+        right: 0;
+        transform-origin: top right;
+        transform: rotate(-45deg);
+        border-top-right-radius: 20px;
+        border-bottom-left-radius: 30px;
+        border-top-left-radius: 5px;
+        }
+        .envelope .back .letter {
+        z-index: 1;
+        position: absolute;
+        top: 5px;
+        left: 10px;
+        width: 530px;
+        height: 346.66667px;
+        background-color: #FFF;
+        border-radius: 5px;
+        padding: 0 30px;
+        box-sizing: border-box;
+        box-shadow: 0px 1px 100px #fbc0b9eb;
+        }
+        .envelope .back .letter div {
+        position: relative;
+        margin-top: 25px;
+        }
+        .envelope .back .letter label {
+        position: absolute;
+        font-size: 16px;
+        line-height: 20px;
+        opacity: 0;
+        top: -15px;
+        transition: all 0.1s linear;
+        color: #ADADAD;
+        }
+        .envelope .back .letter label.show {
+        opacity: 1;
+        top: -18px;
+        }
+        .envelope .back .letter label.focus {
+        color: inherit;
+        }
+        .envelope .back .letter ::placeholder {
+        color: #ADADAD;
+        }
+        .envelope .back .letter input[type='text'], .envelope .back .letter textarea {
+        border: none;
+        box-sizing: border-box;
+        width: 100%;
+        padding: 5px;
+        margin: 0;
+        background-color: #F6F6DF;
+        }
+        .envelope .back .letter input:focus, .envelope .back .letter textarea:focus {
+        outline: none;
+        }
+        .envelope .back .letter input, .envelope .back .letter textarea {
+        font-family: "Allan", sans-serif;
+        font-size: 20px;
+        }
+        .envelope .back .letter input[type='text'] {
+        height: 33px;
+        }
+        .envelope .back .letter input[type='submit'] {
+        font-weight: bold;
+        cursor: pointer;
+        border: none;
+        border-radius: 2px;
+        padding: 5px 20px;
+        background-color: #e7e1bc;
+        margin: 0;
+        transition: all 0.1s linear;
+        }
+        .envelope .back .letter input[type='submit']:hover {
+        background-color: #DCD0AA;
+        }
+        .envelope .back .letter textarea {
+        resize: none;
+        height: 117.66667px;
+        }
+        .envelope.new {
+        animation: new 1s forwards;
+        }
+        .envelope.open {
+        animation: open 3s forwards;
+        }
+        .envelope.open .top-flip {
+        animation: flip-open 1s 1s forwards;
+        }
+        .envelope.open .letter {
+        animation: letter-out 1s 2s forwards;
+        }
+        .envelope.send {
+        animation: send 4s forwards;
+        }
+        .envelope.send .top-flip {
+        transform: rotateX(-180deg);
+        z-index: -1;
+        animation: flip-close 1s 1s forwards;
+        }
+        .envelope.send .letter {
+        animation: letter-in 1s forwards;
+        }
+
+        /* Keyframes */
+        @keyframes new {
+        0% {
+            left: 0%;
+            margin-left: -550px;
+        }
+        100% {
+            left: 50%;
+            margin-left: -275px;
+        }
+        }
+        @keyframes open {
+        0% {
+            transform: translate3d(0, 0, 0) rotateY(0);
+        }
+        33.333% {
+            transform: translate3d(-100%, 0, 0) rotateY(-180deg);
+        }
+        66.666% {
+            transform: translate3d(-100%, 0, 0) rotateY(-180deg);
+        }
+        100% {
+            transform: translate3d(-100%, 733.33333px, 0) rotateY(-180deg);
+        }
+        }
+        @keyframes flip-open {
+        0% {
+            transform: rotateX(0deg);
+            z-index: 5;
+        }
+        50% {
+            transform: rotateX(0deg);
+            z-index: 5;
+        }
+        100% {
+            transform: rotateX(-180deg);
+            z-index: -1;
+        }
+        }
+        @keyframes letter-out {
+        0% {
+            transform: translate3d(0, 0, 0);
+            box-shadow: 0 0px 30px -5px #fbc0b9eb;
+        }
+        100% {
+            transform: translate3d(0, -733.33333px, 0);
+            box-shadow: 0 0px 30px -5px #fbc0b9eb;
+        }
+        }
+        @keyframes send {
+        0% {
+            transform: translate3d(-100%, 733.33333px, 0) rotateY(-180deg);
+            left: 50%;
+            margin-left: -275px;
+        }
+        25% {
+            transform: translate3d(-100%, 0, 0) rotateY(-180deg);
+            left: 50%;
+            margin-left: -275px;
+        }
+        50% {
+            transform: translate3d(-100%, 0, 0) rotateY(-180deg);
+            left: 50%;
+            margin-left: -275px;
+        }
+        75% {
+            transform: translate3d(0, 0, 0) rotateY(0deg);
+            left: 50%;
+            margin-left: -275px;
+        }
+        100% {
+            transform: translate3d(0, 0, 0) rotateY(0deg);
+            left: 100%;
+            margin-left: 20px;
+        }
+        }
+        @keyframes flip-close {
+        0% {
+            transform: rotateX(-180deg);
+            z-index: -1;
+        }
+        50% {
+            transform: rotateX(0deg);
+            z-index: 5;
+        }
+        100% {
+            transform: rotateX(0deg);
+            z-index: 5;
+        }
+        }
+        @keyframes letter-in {
+        0% {
+            transform: translate3d(0, -733.33333px, 0);
+            box-shadow: inset 0 0px 30px -5px #a87e50, 0 0 20px -5px;
+        }
+        100% {
+            transform: translate3d(0, 0, 0);
+            box-shadow: inset 0 0px 30px -5px #b08c5b, 0 0 10px -5px;
+        }
+        }
+
+        /* Cake */
+        .cake {
+        position: absolute;
+        top: 0;
+        right: 0;
+        bottom: 0;
+        left: 0;
+        margin: auto;
+        width: 200px;
+        height: 40px;
+        background: #755c4a; /* instead of lighten(#6B5344, 3%) */
+        border-radius: 100%;
+        box-shadow: 
+            0px 4px 0px #6B5344,
+            0px 8px 0px #6B5344,
+            0px 12px 0px #6B5344,
+            0px 16px 0px #6B5344,
+            0px 20px 0px #6B5344,
+            0px 24px 0px #6B5344,
+            0px 28px 0px #6B5344,
+            0px 32px 0px #2fabde,
+            0px 36px 0px #2fabde,
+            0px 40px 0px #F8ECC9,
+            0px 44px 0px #F8ECC9,
+            0px 48px 0px #F8ECC9,
+            0px 52px 0px #F8ECC9,
+            0px 56px 0px #6B5344,
+            0px 60px 0px #6B5344,
+            0px 64px 0px #6B5344,
+            0px 68px 0px #6B5344,
+            0px 72px 0px #6B5344,
+            0px 76px 0px #6B5344,
+            0px 80px 0px #6B5344;
+        }
+        .cake:before {
+        position: absolute;
+        right: 0;
+        top: 79px;
+        left: -25px;
+        margin: auto;
+        content: "";
+        width: 250px;
+        height: 50px;
+        border-radius: 100%;
+        background: #fff;
+        box-shadow: 0px 6px 0px rgba(0, 0, 0,.1);
+        z-index: -1;
+        }
+
+        /* Candle */
+        .candle {
+        background: #ffffff;
+        border-top-left-radius: 40%;
+        border-top-right-radius: 40%;
+        position: absolute;
+        bottom: 70%;
+        left: 50%;
+        margin-left: -2.5px;
+        margin-top: -8.333333333333334px;
+        width: 10px;
+        height: 50px;
+        }
+        .candle:after,
+        .candle:before {
+        background: rgba(255, 0, 0, 0.4);
+        content: "";
+        position: absolute;
+        width: 100%;
+        height: 5px;
+        }
+        .candle:after {
+        top: 25%;
+        left: 0;
+        }
+        .candle:before {
+        top: 45%;
+        left: 0;
+        }
+
+        /* Fire */
+        .fire {
+        border-radius: 100%;
+        box-shadow: 0 0 40px 10px rgba(248, 233, 209, 0.2);
+        position: absolute;
+        top: -12px;
+        left: 50%;
+        margin-left: -3.3333333333333335px;
+        width: 6.666666666666667px;
+        height: 20.5px;
+        animation: fire 2s infinite;
+        }
+        @keyframes fire {
+        0% {
+            background: radial-gradient(circle, rgba(251,243,63,1) 0%, rgba(252,177,70,1) 100%);
+            transform: translateY(0) scale(1);
+        }
+        50% {
+            transform: translateY(-20px) scale(0);
+            background: radial-gradient(circle, rgba(251,243,63,1) 0%, rgba(252,177,70,1) 100%);
+        }
+        100% {
+            background: radial-gradient(circle, rgba(251,243,63,1) 0%, rgba(252,177,70,1) 100%);
+            transform: translateY(0) scale(1);
+        }
+        }
+
+    /* New "page" container */
+    .page {
+        display: none;
+        position: absolute;
+        top: 0; left: 0;
+        width: 100%; height: 100%;
+        background: mistyrose;
+        padding: 40px;
+        box-sizing: border-box;
+        overflow-y: auto;
+        text-align: center;
+        animation: fadeIn 0.8s ease forwards;
+      }
+  
+      .page h1 {
+        font-family: 'Dancing Script', cursive;
+        font-size: 2.5rem;
+        color: #ff5c70;
+        margin-bottom: 20px;
+      }
+  
+      .page p {
+        font-family: 'Merriweather', serif;
+        font-size: 18px;
+        color: #333;
+        line-height: 1.8;
+        text-align: justify;   /* justified text */
+        margin-bottom: 15px;
+      }
+  
+      /* Next arrow button */
+      .next-btn {
+        position: absolute;
+        bottom: 20px;
+        right: 20px;
+        background: #ff7b88;
+        color: #fff;
+        border: none;
+        border-radius: 50%;
+        width: 50px; height: 50px;
+        font-size: 24px;
+        cursor: pointer;
+        box-shadow: 0 4px 10px rgba(0,0,0,0.2);
+        transition: transform 0.2s;
+      }
+      .next-btn:hover {
+        transform: scale(1.1);
+      }
+  
+      @keyframes fadeIn {
+        from { opacity: 0; }
+        to { opacity: 1; }
+      }
+
+      /* ---- music player styles ---- */
+    .title-bar {
+        background: linear-gradient(90deg, #ffb6c1, #ffc0cb, #ffe4e1);
+      }
+      .player {
+        width: fit-content;
+        border: black solid 1px;
+        border-width: 1px 0px 0px 1px;
+        margin-left: auto;
+        margin-right: auto;
+      }
+      .controlimg:hover { cursor: help; }
+      
+      input[type="range"] {
+    -webkit-appearance: none;
+    appearance: none;
+    width: 100%;
+    background: transparent;
+    }
+    
+    input[type="range"]:focus {
+    outline: none;
+    }
+    
+    input[type="range"]::-webkit-slider-thumb {
+    -webkit-appearance: none;
+    height: 21px;
+    width: 11px;
+    background: svg-load("https://raw.githubusercontent.com/jdan/98.css/main/icon/indicator-horizontal.svg");
+    transform: translateY(-8px);
+    box-shadow: none;
+    border: none;
+    }
+    
+    input[type="range"].has-box-indicator::-webkit-slider-thumb {
+    background: svg-load("https://raw.githubusercontent.com/jdan/98.css/main/icon/indicator-rectangle-horizontal.svg");
+    transform: translateY(-10px);
+    }
+    
+    input[type="range"]::-moz-range-thumb {
+    height: 21px;
+    width: 11px;
+    border: 0;
+    border-radius: 0;
+    background: svg-load("https://raw.githubusercontent.com/jdan/98.css/main/icon/indicator-horizontal.svg");
+    transform: translateY(2px);
+    }
+    
+    input[type="range"]::-moz-range-thumb {
+    background: url("https://raw.githubusercontent.com/jdan/98.css/main/icon/indicator-horizontal.svg");
+    border: 0;
+    border-radius: 0;
+    height: 21px;
+    transform: translateY(2px);
+    width: 11px;
+    }
+    
+    input[type="range"].has-box-indicator::-moz-range-thumb {
+    background: svg-load("https://raw.githubusercontent.com/jdan/98.css/main/icon/indicator-rectangle-horizontal.svg");
+    transform: translateY(0px);
+    }
+    
+    input[type="range"]::-webkit-slider-runnable-track {
+    width: 100%;
+    height: 2px;
+    box-sizing: border-box;
+    background: black;
+    border-right: 1px solid grey;
+    border-bottom: 1px solid grey;
+    box-shadow: 1px 0 0 white, 1px 1px 0 white, 0 1px 0 white, -1px 0 0 darkgrey,
+        -1px -1px 0 darkgrey, 0 -1px 0 darkgrey, -1px 1px 0 white, 1px -1px darkgrey;
+    }
+    
+    input[type="range"]::-moz-range-track {
+    width: 100%;
+    height: 2px;
+    box-sizing: border-box;
+    background: black;
+    border-right: 1px solid grey;
+    border-bottom: 1px solid grey;
+    box-shadow: 1px 0 0 white, 1px 1px 0 white, 0 1px 0 white, -1px 0 0 darkgrey,
+        -1px -1px 0 darkgrey, 0 -1px 0 darkgrey, -1px 1px 0 white, 1px -1px darkgrey;
+    }
+    
+    button,input,label,option,select,table,textarea,ul.tree-view{-webkit-font-smoothing:none;font-family:"Pixelated MS Sans Serif",Arial;font-size:11px}h1{font-size:5rem}h2{font-size:2.5rem}h3{font-size:2rem}h4{font-size:1.5rem}u{border-bottom:.5px solid #222;text-decoration:none}button,input[type=reset],input[type=submit]{border:none;border-radius:0;box-sizing:border-box;color:transparent;min-height:23px;min-width:75px;padding:0 12px;text-shadow:0 0 #222}.vertical-bar,button,input[type=reset],input[type=submit]{background:silver;box-shadow:inset -1px -1px #0a0a0a,inset 1px 1px #fff,inset -2px -2px grey,inset 2px 2px #dfdfdf}.vertical-bar{height:20px;width:4px}button:not(:disabled):active,input[type=reset]:not(:disabled):active,input[type=submit]:not(:disabled):active{box-shadow:inset -1px -1px #fff,inset 1px 1px #0a0a0a,inset -2px -2px #dfdfdf,inset 2px 2px grey;text-shadow:1px 1px #222}@media (not(hover)){button:not(:disabled):hover,input[type=reset]:not(:disabled):hover,input[type=submit]:not(:disabled):hover{box-shadow:inset -1px -1px #fff,inset 1px 1px #0a0a0a,inset -2px -2px #dfdfdf,inset 2px 2px grey}}button:focus,input[type=reset]:focus,input[type=submit]:focus{outline:1px dotted #000;outline-offset:-4px}button::-moz-focus-inner,input[type=reset]::-moz-focus-inner,input[type=submit]::-moz-focus-inner{border:0}:disabled,:disabled+label,input[readonly],input[readonly]+label{color:grey}:disabled+label,button:disabled,input[type=reset]:disabled,input[type=submit]:disabled{text-shadow:1px 1px 0 #fff}}
+    
+    .title-bar-controls button {
+        border:none;border-radius:0;box-sizing:border-box;color:transparent;min-height:23px;min-width:75px;padding:0 12px;text-shadow:0 0 #222}
+    
+    .title-bar-controls button {background:silver;box-shadow:inset -1px -1px #0a0a0a,inset 1px 1px #fff,inset -2px -2px grey,inset 2px 2px #dfdfdf}
+    
+    .title-bar-controls button:not(:disabled):active {box-shadow:inset -1px -1px #fff,inset 1px 1px #0a0a0a,inset -2px -2px #dfdfdf,inset 2px 2px grey;text-shadow:1px 1px #222}
+    
+    @media (not(hover)){
+        button:not(:disabled):hover {
+        box-shadow:inset -1px -1px #fff,inset 1px 1px #0a0a0a,inset -2px -2px #dfdfdf,inset 2px 2px grey}
+    }
+    
+    .title-bar-controls button:focus {outline:1px dotted #000; outline-offset:-4px}
+    .title-bar-controls button::-moz-focus-inner {border:0}
+    
+    
+    @font-face {
+    font-family: "Pixelated MS Sans Serif";
+    src: url("https://files.catbox.moe/1za99g.woff") format("woff");
+    src: url("https://files.catbox.moe/8fwbkl.woff2") format("woff2");
+    font-weight: normal;
+    font-style: normal;
+    }
+    
+    @font-face {
+    font-family: "Pixelated MS Sans Serif";
+    src: url("https://files.catbox.moe/z7csle.woff") format("woff");
+    src: url("https://files.catbox.moe/moqhx6.woff2") format("woff2");
+    font-weight: bold;
+    font-style: normal;
+    }
+    
+    
+    .window, .title-bar {
+    font-family: "Pixelated MS Sans Serif", Arial;
+    -webkit-font-smoothing: none;
+    font-size: 11px;
+    }
+    
+    .window {
+    box-shadow: inset -1px -1px #0a0a0a,
+        inset 1px 1px #dfdfdf, inset -2px -2px #808080,
+        inset 2px 2px #ffffff;
+    background: #c0c0c0;
+    padding: 3px;
+    width:260px;
+    }
+    
+    .title-bar {
+    padding: 3px 2px 3px 3px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    }
+    
+    .title-bar-text {
+    font-weight: bold;
+    color: white;
+    letter-spacing: 0;
+    margin-right: 24px;
+    }
+    
+    .title-bar-controls {
+    display: flex;
+    }
+    
+    .title-bar-controls button {
+    padding: 0;
+    display: block;
+    min-width: 16px;
+    min-height: 14px;
+    }
+    
+    .title-bar-controls button:active {
+    padding: 0;
+    }
+    
+    .title-bar-controls button:focus {
+    outline: none;
+    }
+    
+    .title-bar-controls button[aria-label=Minimize]{
+    background-image:url("https://raw.githubusercontent.com/jdan/98.css/main/icon/minimize.svg");
+    background-position:bottom 3px left 4px;
+    background-repeat:no-repeat}
+    
+    .title-bar-controls button[aria-label=Maximize]{
+    background-image:url("https://raw.githubusercontent.com/jdan/98.css/4a2282dd9170cabf730fb5803d1153d86b2e94e3/icon/maximize.svg");
+    background-position:top 2px left 3px;
+    background-repeat:no-repeat}
+    
+    .title-bar-controls button[aria-label=Close]{
+    background-image:url("https://raw.githubusercontent.com/jdan/98.css/main/icon/close.svg");
+    background-position:top 3px left 4px;
+    background-repeat:no-repeat;
+    margin-left:2px}
+    
+    .window-body { margin:0px; height:98px; }
+
+    input[type=range] {
+        -webkit-appearance: none;
+        appearance:none;
+        width: 100%;
+    }
+ 
+    input[type=range]:focus {
+        outline: none;
+    }
+ 
+    /* settings for chrome browsers */
+    input[type=range]::-webkit-slider-runnable-track {
+        width: 100%;
+        height: 2px; /* thickness of seeking track */
+        cursor: help;
+    }
+ 
+ 
+    /* settings for firefox browsers */
+    input[type=range]::-moz-range-track {
+        width: 100%;
+        height: 2px; /* thickness of seeking track */
+        cursor: help;
+    }
+ 
+    .flex {display: flex;}
+ 
+    .titlebaricon { height:14px; width:14px;}
+ 
+ 
+    .songtitlewindow {
+        background-color:#fff;
+        box-shadow:inset -1px -1px #fff,inset 1px 1px grey,inset -2px -2px #dfdfdf,inset 2px 2px #0a0a0a;
+    }
+ 
+    #musicplayer {
+        border:2px solid silver; /* border around player */
+        border-width: 2px 0px 0px 0px;
+        width:160px; /* width of the player */
+    }
+ 
+    #imagestyle {
+        background:silver; /* background color of player */
+        border:2px solid silver; /* border around player */
+        width:95px; /* width of the player */
+        height:95px;
+        box-shadow:inset -1px -1px #fff,inset 1px 1px grey,inset -2px -2px #dfdfdf,inset 2px 2px #0a0a0a;
+    }
+ 
+    .ic {
+    	width:90px;
+        position:relative;
+        bottom:1px;
+        right:1px;
+        overflow:hidden;
+        padding:2px;
+        border:2px solid transparent;
+    }
+ 
+    .songtitlearrow {
+        background-size:100%;
+        background-repeat:no-repeat;
+        background-image:url(https://files.catbox.moe/f5e8np.png);
+        height:21px;
+        width:21px;
+        position:relative;
+        top:2px;
+        left:-2px;
+        border:0px solid transparent;
+        border-width:0px 0px 0px 0px;
+    }
+ 
+    .songtitle {
+        padding:5px; /* padding around song title */
+        border-bottom:0px; /* border under song title */
+        display:block;
+        font-family:Pixelated MS Sans Serif;
+    }
+ 
+    .controls {
+        font-size:18px !important; /* size of controls */
+        text-align:center;
+        width:100%;
+        position:relative;
+        bottom:10px;
+    }
+ 
+    .controls td {
+        padding:8px 5px 0px 5px; /* padding around controls */
+    }
+ 
+    button {
+        min-width:40px;
+    }
+ 
+    .seeking {
+        background-color:#c0c0c0; /* background color of seeking bar */
+        display:flex;
+        justify-content: space-evenly;
+        padding:14px; /* padding around seeking bar */
+    }
+ 
+    .current-time {
+        padding-right:5px;
+    }
+ 
+    .total-duration {
+        padding-left:5px;
+    }
+    
+    .controlimg {
+    height:15px;
+    width:15px;
+    }
+
+    .mail-photo {
+      max-width: 120px;
+      height: auto;
+      border-radius: 10px;
+      margin-bottom: 10px;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.15);
+      transition: opacity 0.6s ease;
+    }
+    
+    .envelope.open .mail-photo {
+      opacity: 0;
+      pointer-events: none;
+    }
+
+/* ---------------------------
+📱 MOBILE LAYOUT — PAGE ONE (True Center Alignment like Desktop)
+--------------------------- */
+@media (max-width: 768px) {
+    html, body {
+      margin: 0;
+      padding: 0;
+      width: 100%;
+      height: 100%;
+      overflow: hidden;
+      background-color: #ffe9e9;
+    }
+  
+    .page.one {
+      position: relative;
+      width: 100vw;
+      height: 100vh;
+      display: flex;
+      justify-content: center; /* centers horizontally */
+      align-items: center;     /* centers vertically */
+      flex-direction: column;
+      overflow: hidden;
+    }
+  
+    /* ✉️ Envelope container — perfectly centered */
+    .envelope {
+      position: relative; /* changed from absolute */
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      width: 75vw; /* smaller for mobile */
+      max-width: 380px;
+      aspect-ratio: 550 / 366.67;
+      transform: scale(0.9);
+      transform-origin: center center;
+      transition: all 0.3s ease-in-out;
+    }
+  
+    /* Maintain position on animation */
+    .envelope.opened,
+    .envelope.active,
+    .envelope.animate {
+      transform: scale(0.9) !important;
+    }
+  
+    /* 💌 Mail inside envelope */
+    .envelope .front .mail {
+      width: 80%;
+      left: 50%;
+      transform: translateX(-50%);
+    }
+  
+    .envelope .front .mail p:first-child {
+      font-size: 5vw;
+      margin-bottom: 1vw;
+    }
+  
+    .envelope .front .mail p:last-child {
+      font-size: 3.5vw;
+    }
+  
+    /* 🪄 Stamp */
+    .envelope .front .stamp {
+      width: 12vw;
+      height: 12vw;
+      right: 4vw;
+      top: 4vw;
+    }
+  
+    /* 💗 Heart / open button — still centered below envelope */
+    .heart-btn,
+    .open-btn {
+      margin-top: 4vh;
+      width: 12vw;
+      height: 12vw;
+      font-size: 5.5vw;
+      border-radius: 50%;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+  
+    /* ✨ Shadows */
+    .envelope::before,
+    .envelope::after {
+      filter: blur(8px);
+      opacity: 0.6;
+    }
+  
+    /* 🔠 Optional bottom text */
+    .page.one .bottom-text {
+      font-size: 3.8vw;
+      text-align: center;
+      margin-top: 2vh;
+    }
+  }
+  
+  /* 📱 Even smaller devices (phones under 480px) */
+  @media (max-width: 480px) {
+    .envelope {
+      width: 85vw;
+      max-width: 340px;
+      transform: scale(0.85);
+    }
+  
+    .heart-btn,
+    .open-btn {
+      width: 16vw;
+      height: 16vw;
+      font-size: 6.5vw;
+      margin-top: 3vh;
+    }
+  }
+  
+    </style>
+</head>
+<body>
+    <!-- Envelope with id -->
+<div class="envelope new" id="envelope">
+    <div class="front">
+      <div class="mail">
+        <img src="./img/bee.JPG" alt="mail photo" class="mail-photo">
+        <p>I got you something</p>
+        <p>Click me</p>
+      </div>
+    </div>
+    <div class="back">
+      <div class="letter">
+        <p>Happy Birthday!</p>
+        <p>Love, Bee</p>
+        <p>Click the arrow for the surprise!</p>
+  
+        <div class="box">
+          <div class="cake">
+            <div class="candle">
+              <div class="fire"></div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="flip left-flip"></div>
+      <div class="flip right-flip"></div>
+      <div class="flip bottom-flip"></div>
+      <div class="flip top-flip"></div>
+    </div>
+  </div>
+  
+       <!-- Second Page -->
+    <div class="page" id="page2">
+        <div class="player">
+            <div class="window">
+              <div class="title-bar">
+                <div class="title-bar-text">
+                  <sub><img class="titlebaricon" src="https://files.catbox.moe/tg55zp.png" alt="cd player icon"></sub> 
+                  CD player
+                </div>
+                <div class="title-bar-controls">
+                  <button aria-label="Minimize"></button>
+                  <button aria-label="Maximize"></button>
+                  <button aria-label="Close"></button>
+                </div>
+              </div>
+              <div class="window-body">
+                <div class="flex">
+                  <div id="imagestyle">
+                    <img class="ic" src="https://i.pinimg.com/736x/79/9b/67/799b676f0795a153f32f900f78ab8d4b.jpg" alt="love icon">
+                  </div>
+                  <div id="musicplayer">
+                    <div class="songtitlewindow">
+                      <div class="flex">
+                        <marquee scrollamount="4" class="songtitle"></marquee>
+                        <div class="songtitlearrow"></div>
+                      </div>
+                    </div>
+                    <div class="seeking">
+                      <div class="current-time">00:00</div>
+                      <input type="range" min="1" max="100" value="0" class="seek_slider" onchange="seekTo()">
+                      <div class="total-duration">0:00</div>
+                    </div>
+                    <table class="controls">
+                      <tr>
+                        <td><div class="prev-track" onclick="prevTrack()"><button><img src="https://files.catbox.moe/hhoh1h.png" class="controlimg"></button></div></td>
+                        <td><div class="playpause-track" onclick="playpauseTrack()"><button><img src="https://files.catbox.moe/w93riq.png" class="controlimg"></button></div></td>
+                        <td><div class="next-track" onclick="nextTrack()"><button><img src="https://files.catbox.moe/p4q9gf.png" class="controlimg"></button></div></td>
+                      </tr>
+                    </table>
+                    <audio id="music" src=""></audio> 
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        <h1>Birthday Letter</h1>
+        <p>
+            Existen miles de razones por las cuales estar a tu lado, el día terminaría y yo no acabaría de decirlas y parece increíble lo rápido que pasa el tiempo y que pese a eso, 
+            nuestro vínculo siga igual de fuerte. A lo largo de todo este tiempo me has dado muchas enseñanzas, hemos aprendido juntos, has sido parte de mi ascenso a la etapa de la adultez, 
+            desde que estaba en el kinder que me llevabas de la manita; me has soportado en mis momentos donde incluso yo misma no me aguanto, en donde lo único que quería eran unas palabras que me 
+            comprendieran y tú siempre supiste cómo hacerlo, como calmar el caos de mi mente y reconfortar mi corazón. 
+            El destino o simple coincidencia (aunque me gusta más pensar que fue el destino) se encargó de unir nuestros caminos y entrelazar nuestras almas. No puedes dimensionar lo bien que me haces, 
+            lo mucho que has impactado en mi vida, mis pensamientos cambiaron para bien gracias a ti, me diste otra perspectiva del mundo, que aunque no todo es tan malo, 
+            siempre hay razones detrás de por qué sucede, de buscar más allá de lo superficial, como las arañas, que deje de temerles y ahora me dan cierta ternura. 
+            Es por esto y más es que agradezco a la vida por haberte conocido, por haberme atrevido a hablarte e iniciar con esta bonita amistad. 
+            Me extendí un poco, sin embargo, en este día tan especial no podía faltar resaltar la increíble persona que eres. Mi cariño por ti es tan inmenso que sólo 
+            deseo que siempre te pasen cosas buenas, a donde quiera que vayas, lo que sea que hagas y que siempre seas muy feliz. 
+            Feliz cumpleaños, Tammy, mi alma gemela, el tamal de mi desayuno, la abejita de mis flores, la mermelada de mi pan, la crema de mis chilaquiles. 
+            Te adoro mucho ♡
+            </p>
+        <p>
+            Atte: Willy ♡
+        </p>
+    </div>
+
+  <!-- Next button -->
+  <button class="next-btn" id="nextBtn">➜</button>
+
+      <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+      <script>
+        $(function(){
+
+            if (!$('.envelope').hasClass('open')){
+              $('.envelope').click(function(){
+                $(this).removeClass('new').addClass('open');
+              });
+            }
+            
+          });
+
+          // Next page button logic
+      $('#nextBtn').hide(); // hidden at start
+
+      // Show arrow after envelope is opened
+      $('#envelope').on('animationend', function(){
+        if ($(this).hasClass('open')){
+          $('#nextBtn').fadeIn();
+        }
+      });
+
+      // When next is clicked → hide envelope, show page 2
+      $('#nextBtn').click(function(){
+        $('#envelope').fadeOut(600, function(){
+          $('#page2').fadeIn(800);
+          $('#nextBtn').hide(); // hide arrow on page 2
+        });
+      });
+
+      let track_name = document.querySelector(".songtitle");
+ 
+      let playpause_btn = document.querySelector(".playpause-track");
+      let next_btn = document.querySelector(".next-track");
+      let prev_btn = document.querySelector(".prev-track");
+
+      let seek_slider = document.querySelector(".seek_slider");
+      let curr_time = document.querySelector(".current-time");
+      let total_duration = document.querySelector(".total-duration");
+
+      let track_index = 0;
+      let isPlaying = false;
+      let updateTimer;
+
+      // create new audio element
+      let curr_track = document.getElementById("music");
+
+      let track_list = [
+          {
+              name:"Soul Mate - flora cash",
+              path:"./songs/soulmate.mp3"
+          },
+          {
+              name:"Je te laisserai des mots - Patrick Watson",
+              path:"./songs/jete.mp3"
+          },
+          {
+              name:"Yellow - Coldplay",
+              path:"./songs/yellow.mp3"
+          },
+          {
+              name:"One More Time - Daft Punk",
+              path:"./songs/onemore.mp3"
+          },
+          {
+              name:"Piensa En Mi",
+              path:"./songs/piensa.mp3"
+          }
+      ];
+
+      function loadTrack(track_index) {
+          clearInterval(updateTimer);
+          resetValues();
+
+          // load a new track
+          curr_track.src = track_list[track_index].path;
+          curr_track.load();
+
+          // update details of the track
+          track_name.textContent = "playing " + (track_index + 1) + " of " + track_list.length + ": " + track_list[track_index].name;
+
+          // set an interval of 1000 milliseconds for updating the seek slider
+          updateTimer = setInterval(seekUpdate, 1000);
+
+          // move to the next track if the current one finishes playing 
+          curr_track.addEventListener("ended", nextTrack);
+      }
+
+      // reset values
+      function resetValues() {
+          curr_time.textContent = "0:00";
+          total_duration.textContent = "0:00";
+          seek_slider.value = 0;
+      }
+
+      // checks if song is playing
+      function playpauseTrack() {
+          if (!isPlaying) playTrack();
+          else pauseTrack();
+      }
+
+      // plays track when play button is pressed
+      function playTrack() {
+          curr_track.play();
+          isPlaying = true;
+
+          // replace icon with the pause icon
+          playpause_btn.innerHTML = '<button><img src="https://files.catbox.moe/njer0s.png" class="controlimg"></i></button>';
+      }
+
+      // pauses track when pause button is pressed
+      function pauseTrack() {
+          curr_track.pause();
+          isPlaying = false;
+
+          // replace icon with the play icon
+          playpause_btn.innerHTML = '<button><img src="https://files.catbox.moe/w93riq.png" class="controlimg"></button>';
+      }
+
+      // moves to the next track
+      function nextTrack() {
+          if (track_index < track_list.length - 1)
+              track_index += 1;
+          else track_index = 0;
+          loadTrack(track_index);
+          playTrack();
+      }
+
+      // moves to the previous track
+      function prevTrack() {
+          if (track_index > 0)
+              track_index -= 1;
+          else track_index = track_list.length;
+          loadTrack(track_index);
+          playTrack();
+      }
+
+      // seeker slider
+      function seekTo() {
+          seekto = curr_track.duration * (seek_slider.value / 100);
+          curr_track.currentTime = seekto;
+      }
+
+      function seekUpdate() {
+          let seekPosition = 0;
+
+          // check if the current track duration is a legible number
+          if (!isNaN(curr_track.duration)) {
+              seekPosition = curr_track.currentTime * (100 / curr_track.duration);
+              seek_slider.value = seekPosition;
+
+          // calculate the time left and the total duration
+          let currentMinutes = Math.floor(curr_track.currentTime / 60);
+          let currentSeconds = Math.floor(curr_track.currentTime - currentMinutes * 60);
+          let durationMinutes = Math.floor(curr_track.duration / 60);
+          let durationSeconds = Math.floor(curr_track.duration - durationMinutes * 60);
+
+          // adding a zero to the single digit time values
+          if (currentSeconds < 10) { currentSeconds = "0" + currentSeconds; }
+          if (durationSeconds < 10) { durationSeconds = "0" + durationSeconds; }
+          if (currentMinutes < 10) { currentMinutes = currentMinutes; }
+          if (durationMinutes < 10) { durationMinutes = durationMinutes; }
+
+          curr_time.textContent = currentMinutes + ":" + currentSeconds;
+          total_duration.textContent = durationMinutes + ":" + durationSeconds;
+        }
+      }
+
+      // load the first track in the tracklist
+      loadTrack(track_index);
+      </script>
+</body>
+</html>
